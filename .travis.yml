@@ -1,0 +1,20 @@
+dist: bionic
+
+env:
+  global:
+    - IMAGE_TAG=kfserving:v0.4.0
+    - CODE_TAG=v0.4.0
+    
+arch:
+#  - amd64
+  - arm64
+
+services:
+  - docker
+
+before_install:
+  - git clone -b ${CODE_TAG} --depth 1 https://github.com/kubeflow/kfserving.git
+
+script:
+  - cd kfserving
+  - docker build -t ${IMAGE_TAG} -f Dockerfile .
